@@ -1,4 +1,3 @@
-import Contact from "../Model/Contact";
 class ContactService {
 
     /**
@@ -25,7 +24,7 @@ class ContactService {
 
         if (!contact.phone || !contact.phone.length) {
             errors.push('At least one phone number is required');
-        } else if(Set(contact.phone).size !== contact.phone.length){
+        } else if(new Set(contact.phone).size !== contact.phone.length){
             errors.push('Duplicate phone numbers are not allowed');
         }
 
