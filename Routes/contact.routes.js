@@ -5,5 +5,5 @@ const contactRoutes = Router();
 
 contactRoutes.post('/create', (req, res) => ContactController.createContact(req, res));
 contactRoutes.delete('/delete/:id', (req, res) => ContactController.deleteContact(req, res));
-
+contactRoutes.put('/update/:id', (req, res) => ContactController.updateContact(req, res));
 export default contactRoutes;
