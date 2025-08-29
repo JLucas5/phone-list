@@ -1,6 +1,8 @@
-const express = require('express');
+import 'dotenv/config';
+import express from 'express';
 import mongoose from 'mongoose';
-require('dotenv').config();
+import contactRoutes from './Routes/contact.routes.js';
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -9,10 +11,7 @@ mongoose.connect(`mongodb+srv://admin:${process.env.MONGO_PASSWORD}@phone-list.8
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Bem-vindo à API PhoneList!');
-});
+app.use('/api', contactRoutes);
 
-// Inicia o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`)})
