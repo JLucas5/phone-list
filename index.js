@@ -11,7 +11,7 @@ mongoose.connect(`mongodb+srv://admin:${process.env.MONGO_PASSWORD}@phone-list.8
 
 app.use(express.json());
 
-app.use('/api', contactRoutes);
+app.use('/contatos', contactRoutes);
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`)})

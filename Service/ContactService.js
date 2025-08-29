@@ -1,9 +1,10 @@
-class ValidationService {
+import Contact from "../Model/Contact";
+class ContactService {
 
     /**
-     * Validates phone number format
-     * @param {string} phone - Phone number to validate
-     * @returns {boolean} - True if phone number is valid
+     * Validates email format
+     * @param {string} email - Email to validate
+     * @returns {boolean} - True if email is valid
      */
     static isValidEmail(email) {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -24,6 +25,8 @@ class ValidationService {
 
         if (!contact.phone || !contact.phone.length) {
             errors.push('At least one phone number is required');
+        } else if(Set(contact.phone).size !== contact.phone.length){
+            errors.push('Duplicate phone numbers are not allowed');
         }
 
         if (!this.isValidEmail(contact.email)) {
@@ -39,6 +42,20 @@ class ValidationService {
             errors
         };
     }
+
+    /**
+     * Sanitizes contact fields
+     * @param {Object} contact - Contact object to sanitize
+     * @returns {Object} - Sanitized contact object
+     */
+    static sanitizeContact(contact) {
+        return {
+            name: contact.name.trim(),
+            phone: contact.phone.map(p => p.trim().replace(/\D/g, '')),
+            address: contact.address.trim(),
+            email: contact.email.trim().toLowerCase()
+        };
+    }
 }
 
-export default ValidationService;
+export default ContactService;

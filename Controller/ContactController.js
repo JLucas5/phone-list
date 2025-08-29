@@ -1,19 +1,20 @@
 import Contact from '../Model/Contact.js';
-import ValidationService from '../Service/ValidationService.js';
+import ContactService from '../Service/ContactService.js';
 
 class ContactController {
 
-    // Create new contact
     async createContact(req, res) {
         try {
             const { name, phone, address, email } = req.body;
 
-            const validation = ValidationService.validateContact({
+            const sanitizedContact = ContactService.sanitizeContact({
                 name,
                 phone,
                 address,
                 email
             });
+
+            const validation = ContactService.validateContact(sanitizedContact);
 
             if (!validation.isValid) {
                 return res.status(400).json({ 
@@ -22,12 +23,7 @@ class ContactController {
                 });
             }
 
-            const contact = await Contact.create({
-                name,
-                phone,
-                address,
-                email
-            });
+            const contact = await Contact.create(sanitizedContact);
             res.status(201).json(contact);
         } catch (error) {
             res.status(400).json({ message: 'Error creating contact', error: error.message });
