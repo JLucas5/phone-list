@@ -123,6 +123,13 @@ Esse endpoint espera os dados de filtragem do contato como parâmetros da query 
     ]
   }
   ```
+  - **Resposta de Erro** (400/500):
+  ```json
+  {
+    "message": "Error searching contacts",
+    "error": error message
+  }
+  ```
 
   ### Atualizar Contato
 - **Endpoint**: `PUT /api/contacts/update/:id`
@@ -142,18 +149,22 @@ Esse endpoint espera os dados de filtragem do contato como parâmetros da query 
 - **Resposta de Sucesso** (200):
   ```json
   {
-    "id": "string",
-    "name": "string",
-    "phone": ["string"],
-    "address": "string",
-    "email": "string",
-    "isActive": true
+    "message": 'Contact updated successfully',
+    contact:{
+      "id": "string",
+      "name": "string",
+      "phone": ["string"],
+      "address": "string",
+      "email": "string",
+      "isActive": true
+    }
   }
   ```
-- **Resposta de Erro** (404):
+- **Resposta de Erro** (400/500):
   ```json
   {
-    "message": "Contact not found"
+    "message": "Error updating contact",
+    "error": error message
   }
   ```
 
@@ -162,7 +173,7 @@ Esse endpoint espera os dados de filtragem do contato como parâmetros da query 
 - **Endpoint**: `DELETE /api/contacts/delete/:id`
 - **Parameters**:
   - `id`: MongoDB ObjectId
-- **Resposta de Sucesso** (204): 
+- **Resposta de Sucesso** (200): 
 ```json
 {
   "message": "Contact deleted successfully",
@@ -176,10 +187,11 @@ Esse endpoint espera os dados de filtragem do contato como parâmetros da query 
   }
 }
 ```
-- **Resposta de Erro** (404):
+- **Resposta de Erro** (404/500):
   ```json
   {
-    "message": "Contact not found"
+    "message": 'Error deleting contact', 
+    "error": error message 
   }
   ```
 
