@@ -18,7 +18,7 @@ class ContactController {
 
             if (!validation.isValid) {
                 return res.status(400).json({ 
-                    message: 'Validation failed', 
+                    message: 'Contact validation failed', 
                     errors: validation.errors 
                 })
             }
@@ -26,7 +26,9 @@ class ContactController {
             const contact = await Contact.create(sanitizedContact)
             res.status(201).json(contact)
         } catch (error) {
-            res.status(400).json({ message: 'Error creating contact', error: error.message })
+            res.status(400).json({ 
+                message: 'Error creating contact', 
+                error: error.message })
         }
     }
 
@@ -56,7 +58,8 @@ class ContactController {
 
             if (contacts.length === 0) {
                 return res.status(200).json({
-                    message: 'No contacts found matching the criteria'
+                    message: 'Error searching contacts',
+                    error: 'No contacts found matching the criteria'
                 })
             }
 
@@ -86,7 +89,8 @@ class ContactController {
             let contact = await Contact.findById(id);         
             if (!contact || !contact.isActive) {
                 return res.status(404).json({
-                    message: 'Contact not found or inactive'
+                    message: 'Error updating contacts',
+                    error: 'Contact not found or inactive'
                 })
             }
             
@@ -102,7 +106,7 @@ class ContactController {
             
             if (!validation.isValid) {
                 return res.status(400).json({
-                    message: 'Validation failed',
+                    message: 'Contact validation failed',
                     errors: validation.errors
                 })
             }
@@ -138,7 +142,8 @@ class ContactController {
 
             if (!contact) {
                 return res.status(404).json({ 
-                    message: 'Contact not found'
+                    message: 'Error deleting contact',
+                    error: 'Contact not found or inactive'
                 })
             }
 
