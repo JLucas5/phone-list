@@ -3,11 +3,10 @@ import express from 'express'
 import mongoose from 'mongoose'
 import contactRoutes from './Routes/contact.routes.js'
 
-
 const app = express();
 const port = process.env.PORT || 3000
 
-mongoose.connect(`mongodb+srv://admin:${process.env.MONGO_PASSWORD}@phone-list.8jpjvti.mongodb.net/?retryWrites=true&w=majority&appName=phone-list`)
+mongoose.connect(`${process.env.MONGO_URI}/phone-list` || "mongodb://127.0.0.1:27017/phone-list")
 
 app.use(express.json())
 
